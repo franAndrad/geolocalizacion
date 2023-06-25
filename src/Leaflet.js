@@ -13,6 +13,7 @@ function Leaflet() {
   useEffect(() => {
     let map = null;
 
+    //Obtener la ubicacion actual del usuario  
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         position => {
@@ -20,13 +21,15 @@ function Leaflet() {
           setLat(latitude);
           setLong(longitude);
 
-          map = L.map(mapRef.current).setView([latitude, longitude], 30);
+        // Añadir el mapa base de OpenStreetMap
+        map = L.map(mapRef.current).setView([latitude, longitude], 30);
           L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution:
               '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           }).addTo(map);
 
-          const customIcon = L.icon({
+        // Personalizar el icono del marcador 
+        const customIcon = L.icon({
             iconUrl: markerIcon,
             iconRetinaUrl: markerIconRetina,
             iconSize: [25, 41],
@@ -36,10 +39,12 @@ function Leaflet() {
             shadowSize: [41, 41],
             shadowAnchor: [12, 41]
           });
-
+            
+         // Añadir un marcador en la ubicación actual del usuario
           const marker = L.marker([latitude, longitude], { icon: customIcon }).addTo(map);
 
-          map.on('move', function(e) {
+        // Mover el centro del mapa y guardar su latitud y longitud 
+        map.on('move', function(e) {
             const center = map.getCenter();
             setLat(center.lat);
             setLong(center.lng);
@@ -59,12 +64,14 @@ function Leaflet() {
     }
   }, []);
 
+
+//Mostramos la latitud, longitud y la URL de la ubicacion en google maps
   return (
     <div>
       <div style={{ height: '400px' }} ref={mapRef}></div>
       {lat && long && (
         <div>
-          <p>{lat},{long}</p>
+          <p>{lat},{long}</p> 
           <a href={'https://www.google.com/maps/search/?api=1&query=' + lat + ',' + long}>
             Ubicacion
           </a>
