@@ -1,4 +1,4 @@
-import Leaflet from "./Leaflet";
+import Leaflet from "./Components/Leaflet";
 import FormUbicacion from "./Components/Formulario_ubicacion";
 import 'bootstrap/dist/css/bootstrap.min.css'
 
