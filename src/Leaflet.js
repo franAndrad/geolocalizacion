@@ -64,9 +64,13 @@ function Leaflet() {
       <div style={{ height: '400px' }} ref={mapRef}></div>
       {lat && long && (
         <div>
-          {lat},{long}
-        </div>
+          <p>{lat},{long}</p>
+          <a href={'https://www.google.com/maps/search/?api=1&query=' + lat + ',' + long}>
+            Ubicacion
+          </a>
+          </div>
       )}
+
     </div>
   );
 }
